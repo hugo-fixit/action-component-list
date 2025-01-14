@@ -40,11 +40,11 @@ need to perform some initial setup steps before you can develop your action.
 >
 > You'll need to have a reasonably modern version of
 > [Node.js](https://nodejs.org) handy (20.x or later should work!). If you are
-> using a version manager like [`nodenv`](https://github.com/nodenv/nodenv) or
-> [`fnm`](https://github.com/Schniz/fnm), this template has a `.node-version`
+> using a version manager like [`nvm`](https://github.com/nvm-sh/nvm) or
+> [`fnm`](https://github.com/Schniz/fnm), this template has a `.nvmrc`
 > file at the root of the repository that can be used to automatically switch to
 > the correct version when you `cd` into the repository. Additionally, this
-> `.node-version` file is used by GitHub Actions in any `actions/setup-node`
+> `.nvmrc` file is used by GitHub Actions in any `actions/setup-node`
 > actions.
 
 1. :hammer_and_wrench: Install the dependencies
