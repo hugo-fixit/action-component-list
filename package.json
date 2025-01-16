@@ -1,19 +1,21 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "@hugo-fixit/action-component-list",
+  "description": "Generate a list of all hugo-fixit theme components.",
   "version": "0.0.0",
   "author": "",
   "type": "module",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/hugo-fixit/action-component-list",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/hugo-fixit/action-component-list.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/hugo-fixit/action-component-list/issues"
   },
   "keywords": [
+    "Hugo",
+    "FixIt",
     "actions"
   ],
   "exports": {
