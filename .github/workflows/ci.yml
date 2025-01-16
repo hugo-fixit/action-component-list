@@ -25,7 +25,7 @@ jobs:
         id: setup-node
         uses: actions/setup-node@v4
         with:
-          nvmrc-file: .nvmrc
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install Dependencies
