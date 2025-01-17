@@ -1,7 +1,7 @@
 {
   "name": "@hugo-fixit/action-component-list",
   "description": "Generate a list of all hugo-fixit theme components.",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "",
   "type": "module",
   "private": true,
