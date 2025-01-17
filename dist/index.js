@@ -3,7 +3,7 @@ import require$$0$1 from 'crypto';
 import require$$1 from 'fs';
 import require$$1$5 from 'path';
 import require$$2 from 'http';
-import require$$3 from 'https';
+import require$$3, { request as request$2 } from 'https';
 import require$$0$5 from 'net';
 import require$$1$1 from 'tls';
 import require$$4 from 'events';
@@ -27238,18 +27238,94 @@ function requireCore () {
 
 var coreExports = requireCore();
 
-/**
- * Waits for a number of milliseconds.
- *
- * @param milliseconds The number of milliseconds to wait.
- * @returns Resolves with 'done!' after the wait is over.
- */
-async function wait(milliseconds) {
-    return new Promise((resolve) => {
-        if (isNaN(milliseconds))
-            throw new Error('milliseconds is not a number');
-        setTimeout(() => resolve('done!'), milliseconds);
+const escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&#quot;'
+};
+function escape(str) {
+    let newStr = '';
+    for (const char of str)
+        newStr += char in escapeMap ? escapeMap[char] : char;
+    return newStr;
+}
+function json(url) {
+    return new Promise((resolve, reject) => {
+        if (!process.env['GITHUB_TOKEN']) {
+            return reject(new Error('GITHUB_TOKEN is not defined'));
+        }
+        const req = request$2(url, {
+            headers: {
+                'User-Agent': `nodejs ${process.version}`,
+                Authorization: `Bearer ${process.env['GITHUB_TOKEN']}`,
+                Accept: 'application/vnd.github.mercy-preview+json'
+            }
+        }, async (res) => {
+            res.on('error', reject);
+            let body = '';
+            for await (const chunk of res) {
+                body += chunk;
+            }
+            resolve(JSON.parse(body));
+        });
+        req.on('error', reject);
+        req.end();
     });
+}
+async function* getRepos(excludes = []) {
+    for (let page = 1; page < 1000; page += 1) {
+        const repos = await json(`https://api.github.com/orgs/hugo-fixit/repos?type=public&per_page=100&page=${page}`);
+        if (!repos.length)
+            return;
+        for (const repo of repos) {
+            if (!repo.topics)
+                continue;
+            if (repo.private)
+                continue;
+            if (repo.archived)
+                continue;
+            if (repo.fork)
+                continue;
+            if (!repo.topics.includes('theme-component'))
+                continue;
+            if (repo.name === 'component-skeleton')
+                continue;
+            if (excludes.includes(repo.name))
+                continue;
+            yield repo;
+        }
+    }
+}
+/**
+ * Write components to the README files.
+ * @param repos The list of repos.
+ * @param readmePath The path of the README file (Comma separated paths of the readme files). default is './README.md'
+ * @param commentTagName The tag name of the comment. default is 'HUGO_FIXIT_COMPONENTS'
+ * @param template The template of the component list. default is '- [{$repo.name}]({$repo.html_url}): {$repo.description}'
+ */
+async function writeReadmes(repos, readmePath, commentTagName, template) {
+    // generate components
+    const components = [];
+    for (const repo of repos) {
+        components.push(template.replace(/\{\$repo\.(\w+)\}/g, (_, key) => {
+            return escape(String(repo[key] || ''));
+        }));
+    }
+    const start = `<!-- ${commentTagName}:START -->`;
+    const end = `<!-- ${commentTagName}:END -->`;
+    const readmePaths = readmePath.split(',');
+    // read and write README
+    for (const path of readmePaths) {
+        const readmeContent = require$$1.readFileSync(path, 'utf8');
+        const startIndex = readmeContent.indexOf(start) + start.length;
+        const endIndex = readmeContent.indexOf(end);
+        if (startIndex === -1 || endIndex === -1)
+            continue;
+        const newReadmeContent = `${readmeContent.slice(0, startIndex)}\n${components.join('\n')}\n${readmeContent.slice(endIndex)}`;
+        require$$1.writeFileSync(path, newReadmeContent);
+    }
 }
 
 /**
@@ -27259,15 +27335,26 @@ async function wait(milliseconds) {
  */
 async function run() {
     try {
-        const ms = coreExports.getInput('milliseconds');
+        const commentTagName = coreExports.getInput('comment_tag_name');
+        const readmePath = coreExports.getInput('readme_path');
+        const excludeRepos = coreExports.getInput('exclude_repos').split(',');
+        const template = coreExports.getInput('template');
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        coreExports.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        coreExports.debug(new Date().toTimeString());
-        await wait(parseInt(ms, 10));
-        coreExports.debug(new Date().toTimeString());
+        if (coreExports.isDebug()) {
+            coreExports.debug(`commentTagName: ${commentTagName}`);
+            coreExports.debug(`readmePath: ${readmePath}`);
+        }
+        // Get component repos
+        const repos = [];
+        for await (const repo of getRepos(excludeRepos)) {
+            repos.push(repo);
+        }
+        // Sort repos
+        repos.sort((a, b) => a.name === 'fixit-bundle' ? -1 : a.name.localeCompare(b.name));
         // Set outputs for other workflow steps to use
-        coreExports.setOutput('time', new Date().toTimeString());
+        coreExports.setOutput('repos', JSON.stringify(repos));
+        // Generate component list and write to README files
+        await writeReadmes(repos, readmePath, commentTagName, template);
     }
     catch (error) {
         // Fail the workflow run if an error occurs

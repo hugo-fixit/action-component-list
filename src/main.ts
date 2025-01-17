@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { wait } from './wait.js'
+import { getRepos, writeReadmes, type Repo } from './generate.js'
 
 /**
  * The main function for the action.
@@ -8,18 +8,31 @@ import { wait } from './wait.js'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const commentTagName: string = core.getInput('comment_tag_name')
+    const readmePath: string = core.getInput('readme_path')
+    const excludeRepos: string[] = core.getInput('exclude_repos').split(',')
+    const template: string = core.getInput('template')
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    if (core.isDebug()) {
+      core.debug(`commentTagName: ${commentTagName}`)
+      core.debug(`readmePath: ${readmePath}`)
+    }
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
+    // Get component repos
+    const repos: Repo[] = []
+    for await (const repo of getRepos(excludeRepos)) {
+      repos.push(repo)
+    }
+    // Sort repos
+    repos.sort((a: Repo, b: Repo): number =>
+      a.name === 'fixit-bundle' ? -1 : a.name.localeCompare(b.name)
+    )
     // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput('repos', JSON.stringify(repos))
+
+    // Generate component list and write to README files
+    await writeReadmes(repos, readmePath, commentTagName, template)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

@@ -27,19 +27,6 @@ need to perform some initial setup steps before you can develop your action.
    npm run bundle
    ```
 
-3. :white_check_mark: Run the tests
-
-   ```bash
-   $ npm test
-
-   PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
-
-   ...
-   ```
-
 ## Update the Action Metadata
 
 The [`action.yml`](action.yml) file defines metadata about your action, such as
@@ -85,8 +72,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
    ```
 
 2. Replace the contents of `src/` with your action code
-3. Add tests to `__tests__/` for your source code
-4. Format, test, and build the action
+3. Format, and build the action
 
    ```bash
    npm run all
@@ -99,7 +85,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
    > `ncc`, which will create a license file for all of the production node
    > modules used in your project.
 
-5. (Optional) Test your action locally
+4. (Optional) Test your action locally
 
    The [`@github/local-action`](https://github.com/github/local-action) utility
    can be used to test your action locally. It is a simple command-line tool
@@ -127,21 +113,21 @@ So, what are you waiting for? Go ahead and start customizing your action!
    file, [`.env.example`](./.env.example), and the
    [GitHub Actions Documentation](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables).
 
-6. Commit your changes
+5. Commit your changes
 
    ```bash
    git add .
    git commit -m "Feat: add new action code"
    ```
 
-7. Push them to your repository
+6. Push them to your repository
 
    ```bash
    git push -u origin releases/v1
    ```
 
-8. Create a pull request and get feedback on your action
-9. Merge the pull request into the `main` branch
+7. Create a pull request and get feedback on your action
+8. Merge the pull request into the `main` branch
 
 Your action is now published! :rocket:
 
