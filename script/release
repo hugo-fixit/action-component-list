@@ -78,8 +78,12 @@ if [[ ! ($YN == "y" || $YN == "Y") ]]; then
 fi
 
 # 6. Tag a new release
-git tag "$new_tag" --annotate --message "$new_tag Release"
-echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
+if git rev-parse "$new_tag" >/dev/null 2>&1; then
+  echo -e "Tag: ${BOLD_RED}$new_tag${OFF} already exists. Skipping tagging."
+else
+  git tag "$new_tag" --annotate --message "$new_tag Release"
+  echo -e "Tagged: ${BOLD_GREEN}$new_tag${OFF}"
+fi
 
 # 7. Set 'is_major_release' variable
 new_major_release_tag=$(expr "$new_tag" : "$major_semver_tag_regex")
