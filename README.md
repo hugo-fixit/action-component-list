@@ -110,8 +110,10 @@ The list of hugo-fixit components will be displayed here.
 The list of hugo-fixit components will be displayed here.
 
 <!-- FIXIT_COMPONENTS:START -->
+
 - [fixit-bundle](https://github.com/hugo-fixit/fixit-bundle)\
-  🌲 Bundles the FixIt core theme and all hugo-fixit components into a single component.
+  🌲 Bundles the FixIt core theme and all hugo-fixit components into a single
+  component.
 - [cmpt-flyfish](https://github.com/hugo-fixit/cmpt-flyfish)\
   🐟 一个 canvas 实现的小鱼游动动画效果。
 - [cmpt-mdevtools](https://github.com/hugo-fixit/cmpt-mdevtools)\
@@ -119,7 +121,8 @@ The list of hugo-fixit components will be displayed here.
 - [cmpt-translate](https://github.com/hugo-fixit/cmpt-translate)\
   🌐 A component for website automatic translation.
 - [component-projects](https://github.com/hugo-fixit/component-projects)\
-  🐙 Display your GitHub projects in the FixIt theme and generate blog posts from README.
+  🐙 Display your GitHub projects in the FixIt theme and generate blog posts
+  from README.
 - [hugo-atom-feed](https://github.com/hugo-fixit/hugo-atom-feed)\
   Hugo theme component for ATOM feed custom Output Format.
 - [hugo-json-feed](https://github.com/hugo-fixit/hugo-json-feed)\
@@ -129,9 +132,10 @@ The list of hugo-fixit components will be displayed here.
 - [shortcode-caniuse](https://github.com/hugo-fixit/shortcode-caniuse)\
   一个含有 caniuse shortcode 的 Hugo 主题组件。
 - [shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark)\
-  🔖 Embed bookmark of FixIt Docs.
+  🔖
+  Embed bookmark of FixIt Docs.
 - [shortcode-mmt-netease](https://github.com/hugo-fixit/shortcode-mmt-netease)\
   🎶 一个含有网易云随机评论 shortcode 的 Hugo 主题组件。
 - [shortcode-rewards](https://github.com/hugo-fixit/shortcode-rewards)\
-  A Hugo theme component with reward-log or sponsor-log shortcode.
+ A Hugo theme component with reward-log or sponsor-log shortcode.
 <!-- FIXIT_COMPONENTS:END -->
