@@ -54,9 +54,9 @@ jobs:
         uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_STEP_DEBUG: true
         with:
           comment_tag_name: FIXIT_COMPONENTS
-          template: '- [{$repo.name}]({$repo.html_url})\\n {$repo.description}'
 
       - name: Print Output
         id: output

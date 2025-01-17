@@ -24,10 +24,13 @@ export async function run(): Promise<void> {
     for await (const repo of getRepos(excludeRepos)) {
       repos.push(repo)
     }
-    // Sort repos
-    repos.sort((a: Repo, b: Repo): number =>
-      a.name === 'fixit-bundle' ? -1 : a.name.localeCompare(b.name)
-    )
+    // Sort repos by name
+    repos.sort((a: Repo, b: Repo): number => {
+      if (a.name === 'fixit-bundle') return -1
+      if (b.name === 'fixit-bundle') return 1
+      return a.name.localeCompare(b.name)
+    })
+
     // Set outputs for other workflow steps to use
     core.setOutput('repos', JSON.stringify(repos))
 

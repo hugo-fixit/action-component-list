@@ -27349,8 +27349,14 @@ async function run() {
         for await (const repo of getRepos(excludeRepos)) {
             repos.push(repo);
         }
-        // Sort repos
-        repos.sort((a, b) => a.name === 'fixit-bundle' ? -1 : a.name.localeCompare(b.name));
+        // Sort repos by name
+        repos.sort((a, b) => {
+            if (a.name === 'fixit-bundle')
+                return -1;
+            if (b.name === 'fixit-bundle')
+                return 1;
+            return a.name.localeCompare(b.name);
+        });
         // Set outputs for other workflow steps to use
         coreExports.setOutput('repos', JSON.stringify(repos));
         // Generate component list and write to README files
