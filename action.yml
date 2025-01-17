@@ -7,14 +7,30 @@ branding:
   color: blue
 
 inputs:
-  milliseconds:
-    description: Your input description here
-    required: true
-    default: '1000'
+  comment_tag_name:
+    description:
+      Override the default comment tag name, if you want to show multiple
+      instances of the action on the same repo
+    required: false
+    default: HUGO_FIXIT_COMPONENTS
+  readme_path:
+    description: Comma separated paths of the readme files you want to update
+    required: false
+    default: './README.md'
+  exclude_repos:
+    description: Comma separated list of repos to exclude from the list
+    required: false
+    default: ''
+  template:
+    description:
+      'Template to use while creating the list of hugo-fixit theme components.
+      It can contain {$repo.name} etc. as variables'
+    default: '- [{$repo.name}]({$repo.html_url}): {$repo.description}'
+    required: false
 
 outputs:
-  time:
-    description: Your output description here
+  repos:
+    description: The list of hugo-fixit theme components repos that were updated
 
 runs:
   using: node20
