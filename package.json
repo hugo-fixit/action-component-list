@@ -32,7 +32,8 @@
     "local-action": "npx local-action . src/main.ts .env",
     "package": "npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
-    "postversion": "script/release",
+    "postversion": "script/release && npm run release",
+    "release": "fixit-releaser changelog",
     "all": "npm run format:write && npm run lint && npm run package"
   },
   "license": "MIT",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@github/local-action": "^2.5.0",
+    "@hugo-fixit/fixit-releaser": "^1.0.4",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.1",
