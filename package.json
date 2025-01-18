@@ -32,7 +32,7 @@
     "local-action": "npx local-action . src/main.ts .env",
     "package": "npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
-    "postversion": "script/release && npm run release",
+    "postversion": "npm run release",
     "release": "fixit-releaser changelog",
     "all": "npm run format:write && npm run lint && npm run package"
   },
