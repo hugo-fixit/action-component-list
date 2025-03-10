@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
-    "@github/local-action": "^2.6.1",
+    "@github/local-action": "^3.1.0",
     "@hugo-fixit/fixit-releaser": "^1.1.4",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.0",
