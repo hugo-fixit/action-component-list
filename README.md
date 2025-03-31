@@ -127,7 +127,7 @@ The list of hugo-fixit components will be displayed here.
 - [shortcode-asciinema](https://github.com/hugo-fixit/shortcode-asciinema)\
   A Hugo theme component with asciinema-embed shortcode.
 - [shortcode-caniuse](https://github.com/hugo-fixit/shortcode-caniuse)\
-  一个含有 caniuse shortcode 的 Hugo 主题组件。
+  一��含有 caniuse shortcode 的 Hugo 主题组件。
 - [shortcode-docs-bookmark](https://github.com/hugo-fixit/shortcode-docs-bookmark)\
   🔖 Embed bookmark of FixIt Docs.
 - [shortcode-rewards](https://github.com/hugo-fixit/shortcode-rewards)\
