@@ -3,7 +3,9 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: yearly
+    assignees:
+      - Lruihao
     groups:
       actions-minor:
         update-types:
@@ -13,11 +15,13 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: yearly
     ignore:
       - dependency-name: '@types/node'
         update-types:
           - 'version-update:semver-major'
+    assignees:
+      - Lruihao
     groups:
       npm-development:
         dependency-type: development
