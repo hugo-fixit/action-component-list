@@ -144,7 +144,7 @@ action in the same repository.
 steps:
   - name: Checkout
     id: checkout
-    uses: actions/checkout@v4
+    uses: actions/checkout@v6
 
   - name: Test Local Action
     id: test-action

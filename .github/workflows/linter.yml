@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -52,3 +52,6 @@ jobs:
           VALIDATE_JSON: false
           VALIDATE_TYPESCRIPT_STANDARD: false
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false

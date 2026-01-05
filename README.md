@@ -54,7 +54,7 @@ hash.
        runs-on: ubuntu-latest
        steps:
          - name: Checkout
-           uses: actions/checkout@v4
+           uses: actions/checkout@v6
          - name: Generate hugo-fixit component list
            id: test-action
            uses: hugo-fixit/action-component-list@v1
