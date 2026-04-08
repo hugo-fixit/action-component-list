@@ -24,7 +24,7 @@ need to perform some initial setup steps before you can develop your action.
 2. :building_construction: Package the TypeScript for distribution
 
    ```bash
-   npm run bundle
+   pnpm bundle
    ```
 
 ## Update the Action Metadata
@@ -75,7 +75,7 @@ So, what are you waiting for? Go ahead and start customizing your action!
 3. Format, and build the action
 
    ```bash
-   npm run all
+   pnpm all
    ```
 
    > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
