@@ -28129,6 +28129,8 @@ function json(url) {
                 Accept: 'application/vnd.github.mercy-preview+json'
             }
         }, async (res) => {
+            // Ensure multibyte UTF-8 characters (e.g. emoji) are decoded safely across chunks.
+            res.setEncoding('utf8');
             res.on('error', reject);
             let body = '';
             for await (const chunk of res) {
